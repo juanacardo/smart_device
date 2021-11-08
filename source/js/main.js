@@ -133,30 +133,81 @@ spollerButtons.forEach(function (button) {
 });
 
 // Tel Mask
-var telInputs = document.querySelectorAll('input[data-tel-input]');
-var getInputNumberValue = function (input) {
+
+var phoneInputs = document.querySelectorAll('input[data-tel-input]');
+
+var getInputNumbersValue = function (input) {
+  // Return stripped input value — just numbers
   return input.value.replace(/\D/g, '');
 };
 
-var onTelInputMask = function (e) {
+var onPhonePaste = function (e) {
   var input = e.target;
-  var inputNumberValue = getInputNumberValue(input);
+  var inputNumbersValue = getInputNumbersValue(input);
+  var pasted = e.clipboardData || window.clipboardData;
+  if (pasted) {
+    var pastedText = pasted.getData('Text');
+    if (/\D/g.test(pastedText)) {
+      // Attempt to paste non-numeric symbol — remove all non-numeric symbols,
+      // formatting will be in onPhoneInput handler
+      input.value = inputNumbersValue;
+      return;
+    }
+  }
+};
+
+var onPhoneInput = function (e) {
+  var input = e.target;
+  var inputNumbersValue = getInputNumbersValue(input);
+  var selectionStart = input.selectionStart;
   var formattedInputValue = '';
-  if (!inputNumberValue) {
+
+  if (!inputNumbersValue) {
     input.value = '';
     return;
   }
-  if (inputNumberValue[0] === '9') {
-    inputNumberValue = '7' + inputNumberValue;
+
+  if (input.value.length !== selectionStart) {
+    // Editing in the middle of input, not last symbol
+    if (e.data && /\D/g.test(e.data)) {
+      // Attempt to input non-numeric symbol
+      input.value = inputNumbersValue;
+    }
+    return;
   }
-  var firstSymbols = '+7';
-  formattedInputValue = firstSymbols + '';
-  if (inputNumberValue.lenght > 1) {
-    formattedInputValue += ' (' + inputNumberValue.substring(1, 4);
+
+  if (['7', '8', '9'].indexOf(inputNumbersValue[0]) > -1) {
+    if (inputNumbersValue[0] === '9') {
+      inputNumbersValue = '7' + inputNumbersValue;
+    }
+    var firstSymbols = (inputNumbersValue[0] === '8') ? '8' : '+7';
+    formattedInputValue = input.value = firstSymbols + ' ';
+    if (inputNumbersValue.length > 1) {
+      formattedInputValue += '(' + inputNumbersValue.substring(1, 4);
+    }
+    if (inputNumbersValue.length >= 5) {
+      formattedInputValue += ') ' + inputNumbersValue.substring(4, 7);
+    }
+    if (inputNumbersValue.length >= 8) {
+      formattedInputValue += '-' + inputNumbersValue.substring(7, 9);
+    }
+    if (inputNumbersValue.length >= 10) {
+      formattedInputValue += '-' + inputNumbersValue.substring(9, 11);
+    }
+  } else {
+    formattedInputValue = '+' + inputNumbersValue.substring(0, 16);
   }
   input.value = formattedInputValue;
 };
-
-telInputs.forEach(function (input) {
-  input.addEventListener('input', onTelInputMask);
+var onPhoneKeyDown = function (e) {
+  // Clear input after remove last symbol
+  var inputValue = e.target.value.replace(/\D/g, '');
+  if (e.keyCode === 8 && inputValue.length === 1) {
+    e.target.value = '';
+  }
+};
+phoneInputs.forEach(function (input) {
+  input.addEventListener('keydown', onPhoneKeyDown);
+  input.addEventListener('input', onPhoneInput, false);
+  input.addEventListener('paste', onPhonePaste, false);
 });
