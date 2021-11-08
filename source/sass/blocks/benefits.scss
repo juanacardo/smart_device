@@ -1,0 +1,130 @@
+.benefits {
+  padding-top: 113px;
+  padding-bottom: 100px;
+  background-image: url("../img/benefits_bg_desktop.svg");
+  background-repeat: no-repeat;
+  background-position: center 0;
+
+  @media (max-width: $tablet-width) {
+    padding-top: 53px;
+    padding-bottom: 74px;
+    background-image: url("../img/benefits_bg_tablet.svg");
+    background-position: 100% 37%;
+  }
+
+  @media (max-width: $mobile-width) {
+    padding-top: 37px;
+    padding-bottom: 57px;
+    background-position: 50% 70.5%;
+  }
+}
+.benefits__body {
+  max-width: 1170px;
+  margin: 0 auto;
+}
+.benefits__list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: minmax(299px, 1fr);
+  gap: 30px;
+  margin-bottom: 104px;
+
+  @media (max-width: $tablet-width) {
+    padding-right: 0;
+    padding-left: 0;
+    grid-auto-rows: minmax(232px, min-content);
+    margin-bottom: 55px;
+  }
+
+  @media (max-width: $mobile-width) {
+    grid-template-columns: 1fr;
+    gap: 21px;
+    margin-bottom: 58px;
+  }
+}
+.benefits__item {
+  cursor: pointer;
+  background-color: $white;
+  border-width: 1px 1px 1px 3px;
+  border-style: solid;
+  border-color: $light-gray $light-gray $light-gray $blue;
+  padding-top: 39px;
+  padding-right: 42px;
+  padding-bottom: 39px;
+  padding-left: 42px;
+
+  @media (max-width: $tablet-width) {
+    padding-top: 24px;
+    padding-right: 20px;
+    padding-bottom: 23px;
+    padding-left: 25px;
+  }
+
+  @media (max-width: $mobile-width) {
+    padding-top: 25px;
+    padding-right: 12px;
+    padding-left: 23px;
+    padding-bottom: 26px;
+    border-width: 1px 1px 1px 2px;
+  }
+}
+.benefits__item--people svg {
+  width: 32px;
+  height: 32px;
+}
+.benefits__item-private svg {
+  width: 30px;
+  height: 26px;
+}
+.benefits__item--price svg {
+  width: 32px;
+  height: 32px;
+}
+.benefits__item:hover {
+  background-color: $blue;
+  transition: 500ms;
+}
+.benefits__item:hover svg {
+  fill: $white;
+  transition: 500ms;
+}
+.benefits__item:hover h3,
+.benefits__item:hover p {
+  color: $white;
+  transition: 500ms;
+}
+.benefits__item h3 {
+  font-family: $roboto;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 34px;
+  color: $blue;
+  margin-top: 15px;
+  margin-bottom: 16px;
+
+  @media (max-width: $tablet-width) {
+    margin-top: 3px;
+    margin-bottom: 11px;
+  }
+
+  @media (max-width: $mobile-width) {
+    font-size: 20px;
+    line-height: 28px;
+    margin-top: 6px;
+    margin-bottom: 10px;
+  }
+}
+.benefits__item p {
+  letter-spacing: 0.04em;
+  margin-top: 0;
+}
+.benefits__item p:last-of-type {
+  margin-bottom: 0;
+}
+.benefits__mobile-br {
+  display: none;
+
+  @media (max-width: $mobile-width) {
+    display: inline;
+  }
+}

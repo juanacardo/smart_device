@@ -4,20 +4,20 @@
   padding: 0;
 }
 .container {
-  // max-width: 1166px;
-  // margin: 0 auto;
-  // padding-right: 20px;
-  // padding-left: 20px;
+  max-width: 1422px;
+  margin: 0 auto;
+  padding-right: 40px;
+  padding-left: 40px;
 
-  // @media (max-width: $tablet-width) {
-  //   max-width: 100%;
-  //   padding-right: 35px;
-  //   padding-left: 35px;
-  // }
-  // @media (max-width: $mobile-width) {
-  //   padding-right: 14px;
-  //   padding-left: 14px;
-  // }
+  @media (max-width: $tablet-width) {
+    max-width: 100%;
+    padding-right: 25px;
+    padding-left: 25px;
+  }
+  @media (max-width: $mobile-width) {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
 }
 .visually-hidden {
   position: absolute;
@@ -32,6 +32,5 @@
   overflow: hidden;
 }
 .blocked {
-  overflow: hidden;
-  z-index: 0;
+  overflow-y: hidden;
 }

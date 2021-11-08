@@ -1,0 +1,33 @@
+.products {
+  background-color: $dark-gray;
+  padding-top: 89px;
+  padding-bottom: 76px;
+
+  @media (max-width: $tablet-width) {
+    padding-top: 50px;
+    padding-bottom: 77px;
+  }
+
+  @media (max-width: $mobile-width) {
+    padding-bottom: 62px;
+  }
+}
+.products__container {
+  max-width: 1230px;
+}
+.products__title {
+  color: $white;
+  max-width: 817px;
+  margin-left: 30px;
+
+  @media (max-width: $tablet-width) {
+    max-width: 616px;
+    margin-bottom: 47px;
+    margin-left: 0;
+  }
+
+  @media (max-width: $mobile-width) {
+    padding-left: 10px;
+    margin-bottom: 41px;
+  }
+}

@@ -1,0 +1,97 @@
+.feedback {
+  background-color: $blue;
+  color: $white;
+  padding-top: 91px;
+  padding-bottom: 108px;
+
+  @media (max-width: $tablet-width) {
+    padding-top: 79px;
+    padding-bottom: 102px;
+  }
+
+  @media (max-width: $mobile-width) {
+    padding-top: 31px;
+    padding-bottom: 34px;
+  }
+}
+.feedback__body {
+  padding-right: 9%;
+  padding-left: 9%;
+  position: relative;
+
+  @media (max-width: $tablet-width) {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+.feedback__body:before {
+  content: "";
+  position: absolute;
+  width: 663px;
+  height: 490px;
+  right: 57%;
+  background-image: url("../img/airplane_desktop.png"),
+    url("../img/triangles.svg");
+  background-repeat: no-repeat;
+  background-position: 153px 70px, 0 2px;
+  background-size: 511px 288px;
+
+  @media (min-resolution: 2dppx) {
+    background-image: url("../img/airplane_desktop@2x.png"),
+      url("../img/triangles.svg");
+  }
+
+  @media (max-width: $tablet-width) {
+    display: none;
+  }
+}
+.feedback__body::after {
+  content: "";
+  position: absolute;
+  width: 509px;
+  height: 669px;
+  right: -394px;
+  top: -56px;
+  background-image: url("../img/triangles_2.svg");
+  background-repeat: no-repeat;
+  background-position: 0 0;
+
+  @media (max-width: $tablet-width) {
+    display: none;
+  }
+}
+.feedback__form {
+  box-sizing: border-box;
+  min-width: 440px;
+  width: 49%;
+  max-width: 570px;
+  margin-left: auto;
+
+  @media (max-width: $tablet-width) {
+    margin-right: auto;
+    width: 100%;
+    max-width: 590px;
+  }
+
+  @media (max-width: $mobile-width) {
+    min-width: auto;
+  }
+}
+.feedback__title {
+  color: $white;
+}
+.feedback__form p {
+  margin-top: 10px;
+  margin-bottom: 51px;
+  letter-spacing: 0.04em;
+
+  @media (max-width: $tablet-width) {
+    margin-top: 17px;
+    margin-bottom: 54px;
+  }
+
+  @media (max-width: $mobile-width) {
+    margin-top: 13px;
+    margin-bottom: 26px;
+  }
+}

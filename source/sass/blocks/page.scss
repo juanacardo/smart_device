@@ -1,0 +1,55 @@
+.page {
+  min-width: 320px;
+  font-family: $mono;
+  font-size: 15px;
+  line-height: 22px;
+  color: $font;
+  background-color: $white;
+}
+.page__wrapper {
+  position: relative;
+  overflow: hidden;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.page__main {
+  flex: 1 1 auto;
+}
+.page__header {
+  font-family: $roboto;
+  font-weight: 700;
+  font-size: 80px;
+  line-height: 94px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: $white;
+
+  @media (max-width: $tablet-width) {
+    font-size: 60px;
+    line-height: 70px;
+  }
+
+  @media (max-width: $mobile-width) {
+    font-size: 40px;
+    line-height: 47px;
+  }
+}
+.page__title {
+  font-family: $roboto;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 51px;
+  color: $font;
+  margin: 0;
+
+  @media (max-width: $tablet-width) {
+    font-size: 32px;
+    line-height: 45px;
+  }
+
+  @media (max-width: $mobile-width) {
+    font-size: 28px;
+    line-height: 39px;
+  }
+}

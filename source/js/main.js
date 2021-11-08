@@ -1,72 +1,162 @@
-// 'use strict';
-// var page = document.querySelector('.page');
-// var navigationMenu = document.querySelector('.main-navigation');
-// var navigationLinks = document.querySelectorAll('.main-navigation__link');
-// var navToggle = navigationMenu.querySelector('.main-navigation__toggle');
-// var telInput = document.querySelector('#tel-input');
-// var nameInput = document.querySelector('#name-input');
-// var contactsSubmitButton = document.querySelector('#contacts-submit');
-// var inputErrorColor = '#ff0001';
-// var inputErrorMessage = 'Номер телефона должен содержать цифры';
+'use strict';
+var inputErrorColor = '#ff0001';
+var inputErrorMessage = 'Пожалуйста, введите 10 цифр';
+
+var page = document.querySelector('.page');
+var popup = document.querySelector('.popup');
+var popupOpenButton = document.querySelector('#popup-open-button');
+var popupCloseButton = document.querySelector('#popup-close-button');
+var popupOverlay = document.querySelector('.popup-overlay');
+var popupForm = document.querySelector('#popup-form');
+var popupName = document.querySelector('#popup-name');
+var popupTel = document.querySelector('#popup-tel');
+var popupQuestion = document.querySelector('#popup-question');
+
+var feedbackForm = document.querySelector('#feedback-form');
+var feedbackName = document.querySelector('#feedback-name');
+var feedbackTel = document.querySelector('#feedback-tel');
+var feedbackQuestion = document.querySelector('#feedback-question');
+
+var spollerButtons = document.querySelectorAll('.spoller__button');
+var spollers = document.querySelectorAll('.spoller__item');
 
 // // Сохранение в Local Storage
 
-// contactsSubmitButton.addEventListener('click', function () {
-//   localStorage.setItem(telInput.name, telInput.value);
-//   localStorage.setItem(nameInput.name, nameInput.value);
-// });
+var saveInLocalStorage = function (input) {
+  localStorage.setItem(input.name, input.value);
+};
 
-// // Меню-бургер
-// navigationMenu.classList.remove('main-navigation--nojs');
+// Функция визульного отображения ошибки валидации
+var setError = function (input) {
+  input.style.borderColor = inputErrorColor;
+};
 
-// navToggle.addEventListener('click', function () {
-//   if (navigationMenu.classList.contains('main-navigation--closed')) {
-//     navigationMenu.classList.remove('main-navigation--closed');
-//     navigationMenu.classList.add('main-navigation--opened');
-//     page.classList.add('blocked');
-//   } else {
-//     navigationMenu.classList.add('main-navigation--closed');
-//     navigationMenu.classList.remove('main-navigation--opened');
-//     page.classList.remove('blocked');
-//   }
-// });
+var removeError = function (input) {
+  input.setCustomValidity('');
+  input.style.borderColor = '';
+};
 
-// navigationLinks.forEach(function (element) {
-//   element.addEventListener('click', function () {
-//     if (document.body.classList.contains('blocked')) {
-//       document.body.classList.remove('blocked');
-//     }
-//     if (navigationMenu.classList.contains('main-navigation--opened')) {
-//       navigationMenu.classList.remove('main-navigation--opened');
-//       navigationMenu.classList.add('main-navigation--closed');
-//     }
-//   });
-// });
+// Валидация формы
+var onTelInput = function (input) {
+  var inputValue = input.value;
+  var re = /^(\d{10})$/;
+  if (re.test(inputValue) === false) {
+    input.setCustomValidity(inputErrorMessage);
+    setError(input);
+  } else {
+    removeError(input);
+  }
+  if (input.value === '') {
+    removeError(input);
+  }
+  input.reportValidity();
+};
 
-// // Функция визульного отображения ошибки валидации
-// var setError = function (input) {
-//   input.style.borderColor = inputErrorColor;
-// };
+var validatePopupTel = function () {
+  onTelInput(popupTel);
+};
 
-// var removeError = function (input) {
-//   input.setCustomValidity('');
-//   input.style.borderColor = '';
-// };
+// Modal
+var showModal = function () {
+  popup.classList.remove('popup--closed');
+  popupOverlay.classList.remove('popup-overlay--closed');
+  page.classList.add('blocked');
+  popupName.focus();
+};
 
-// // Валидация формы
-// var onTelInput = function () {
-//   var inputValue = telInput.value;
-//   var re = /[0-9]/;
-//   if (re.test(inputValue) === false) {
-//     telInput.setCustomValidity(inputErrorMessage);
-//     setError(telInput);
-//   } else {
-//     removeError(telInput);
-//   }
-//   if (telInput.value === '') {
-//     removeError(telInput);
-//   }
-//   telInput.reportValidity();
-// };
+var hideModal = function () {
+  popup.classList.add('popup--closed');
+  popupOverlay.classList.add('popup-overlay--closed');
+  page.classList.remove('blocked');
+};
 
-// telInput.addEventListener('input', onTelInput);
+var onPopupFormEscKeydown = function (evt) {
+  if (evt.keyCode === 27) {
+    hideModal();
+  }
+};
+
+var openModal = function () {
+  showModal();
+  popupCloseButton.addEventListener('click', hideModal);
+  page.addEventListener('keydown', onPopupFormEscKeydown);
+  popupOverlay.addEventListener('click', hideModal);
+  popupTel.addEventListener('input', validatePopupTel);
+};
+
+popupOpenButton.addEventListener('click', openModal);
+
+function closeModal() {
+  popupCloseButton.removeEventListener('click', hideModal);
+  page.removeEventListener('keydown', onPopupFormEscKeydown);
+  popupOverlay.removeEventListener('click', hideModal);
+  popupTel.removeEventListener('input', validatePopupTel);
+  saveInLocalStorage(popupName);
+  saveInLocalStorage(popupTel);
+  saveInLocalStorage(popupQuestion);
+}
+
+popupForm.addEventListener('submit', closeModal);
+
+// Feedback form
+var validateFeedbackTel = function () {
+  onTelInput(feedbackTel);
+};
+
+var submitFeedback = function () {
+  saveInLocalStorage(feedbackName);
+  saveInLocalStorage(feedbackTel);
+  saveInLocalStorage(feedbackQuestion);
+};
+
+feedbackForm.addEventListener('submit', submitFeedback);
+feedbackTel.addEventListener('input', validateFeedbackTel);
+
+// Spoller
+spollers.forEach(function (spoller) {
+  spoller.classList.remove('spoller__item--nojs');
+});
+
+spollerButtons.forEach(function (button) {
+  button.addEventListener('click', function () {
+    var spoller = button.closest('.spoller__item');
+
+    if (spoller.classList.contains('spoller__item--opened')) {
+      spoller.classList.remove('spoller__item--opened');
+    } else {
+      spollers.forEach(function (item) {
+        item.classList.remove('spoller__item--opened');
+      });
+      spoller.classList.add('spoller__item--opened');
+    }
+  });
+});
+
+// Tel Mask
+var telInputs = document.querySelectorAll('input[data-tel-input]');
+var getInputNumberValue = function (input) {
+  return input.value.replace(/\D/g, '');
+};
+
+var onTelInputMask = function (e) {
+  var input = e.target;
+  var inputNumberValue = getInputNumberValue(input);
+  var formattedInputValue = '';
+  if (!inputNumberValue) {
+    input.value = '';
+    return;
+  }
+  if (inputNumberValue[0] === '9') {
+    inputNumberValue = '7' + inputNumberValue;
+  }
+  var firstSymbols = '+7';
+  formattedInputValue = firstSymbols + '';
+  if (inputNumberValue.lenght > 1) {
+    formattedInputValue += ' (' + inputNumberValue.substring(1, 4);
+  }
+  input.value = formattedInputValue;
+};
+
+telInputs.forEach(function (input) {
+  input.addEventListener('input', onTelInputMask);
+});

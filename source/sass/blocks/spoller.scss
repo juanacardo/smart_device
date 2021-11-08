@@ -1,0 +1,69 @@
+.spoller__item h3 {
+  @media (max-width: $mobile-width) {
+    margin: 0;
+    padding-top: 29px;
+    padding-bottom: 28px;
+  }
+}
+.spoller__button-wrapper {
+  display: flex;
+
+  @media (max-width: $mobile-width) {
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+.spoller__button {
+  @media (max-width: $mobile-width) {
+    width: 30px;
+    height: 40px;
+    position: relative;
+  }
+}
+.spoller__button:before,
+.spoller__button:after {
+  @media (max-width: $mobile-width) {
+    content: "";
+    width: 16px;
+    height: 1px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 3px;
+    background-color: $spoller;
+  }
+}
+.spoller__button:before {
+  @media (max-width: $mobile-width) {
+    transform: rotate(90deg);
+  }
+}
+.spoller__content {
+  @media (max-width: $mobile-width) {
+    padding-top: 3px;
+    padding-bottom: 26px;
+  }
+}
+.spoller__item--closed .spoller__content {
+  @media (max-width: $mobile-width) {
+    display: none;
+  }
+}
+.spoller__item--opened .spoller__content {
+  @media (max-width: $mobile-width) {
+    display: block;
+  }
+}
+.spoller__item--opened .spoller__button:before {
+  transform: rotate(0deg);
+}
+.spoller__item--nojs .spoller__button {
+  @media (max-width: $mobile-width) {
+    display: none;
+  }
+}
+.spoller__item--nojs .spoller__content {
+  @media (max-width: $mobile-width) {
+    display: block;
+  }
+}
