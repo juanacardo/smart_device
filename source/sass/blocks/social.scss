@@ -10,18 +10,18 @@
     margin-right: 0;
   }
 }
-.social__item a {
+.social__link {
   display: block;
 
   @media (max-width: $mobile-width) {
     padding: 8px;
   }
 }
-.social__item a:hover svg {
+.social__link:hover svg {
   fill: $blue;
   transition: 500ms;
 }
-.social__item a:active svg {
+.social__link:active svg {
   opacity: 0.8;
   transition: 500ms;
 }

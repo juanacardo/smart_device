@@ -1,4 +1,5 @@
 .about {
+  min-height: 318px;
   padding-right: 6px;
   padding-bottom: 9px;
   padding-left: 178px;
@@ -12,11 +13,12 @@
   }
 
   @media (max-width: $tablet-width) {
+    min-height: 352px;
     padding-left: 187px;
     padding-right: 0;
     background-image: url("../img/2005_tablet.png");
     background-position: -33px -2px;
-    background-size: 369px 179px;
+    background-size: 179px 362px;
 
     @media (min-resolution: 2dppx) {
       background-image: url("../img/2005_tablet@2x.png");

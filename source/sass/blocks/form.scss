@@ -147,11 +147,11 @@
     margin-bottom: 24px;
   }
 }
-.form  button:hover {
+.form button:hover {
   opacity: 0.8;
   transition: 500ms;
 }
-.form  button:active {
+.form button:active {
   opacity: 0.6;
   transition: 500ms;
 }
@@ -199,7 +199,6 @@
 .form__checkbox--popup label {
   padding-top: 7px;
   padding-left: 50px;
-
 }
 .form__checkbox input:hover + label,
 .form__checkbox input:focus + label {
@@ -227,4 +226,7 @@
   background-image: url("../img/check.svg");
   background-repeat: no-repeat;
   background-position: center;
+}
+.form__input-error {
+  outline: 3px solid $red;
 }
