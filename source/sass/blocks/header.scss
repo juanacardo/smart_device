@@ -9,7 +9,7 @@
 .header__body {
   display: flex;
   justify-content: flex-end;
-  align-items: center;
+  align-items: start;
   padding-top: 33px;
   padding-right: 6px;
   padding-bottom: 33px;
@@ -37,6 +37,7 @@
   }
 }
 .header__contacts {
+  align-self: center;
   display: flex;
   flex-wrap: wrap;
   padding-left: 48px;
@@ -45,11 +46,7 @@
   margin-left: 88px;
 
   @media (max-width: $tablet-width) {
-    margin-left: 22px;
-  }
-
-  @media (max-width: $mobile-width) {
-    margin-left: 11px;
+    margin-left: 0;
   }
 }
 .header__item:first-child {
@@ -122,6 +119,7 @@
   border-radius: 5px;
   color: $white;
   margin-left: 3.4%;
+  margin-top: 5px;
   padding-top: 13px;
   padding-right: 28px;
   padding-bottom: 13px;

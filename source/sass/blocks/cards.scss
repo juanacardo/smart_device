@@ -93,8 +93,6 @@
 }
 .cards__button {
   background-color: $blue;
-  padding: 0;
-  border: none;
   position: absolute;
   width: 63px;
   height: 63px;
@@ -108,12 +106,4 @@
     right: 0;
     bottom: 0;
   }
-}
-.cards__button:hover {
-  opacity: 0.8;
-  transition: 500ms;
-}
-.cards__button:active {
-  opacity: 0.6;
-  transition: 500ms;
 }
