@@ -19,7 +19,7 @@ var feedbackName = document.querySelector("#feedback-name");
 var feedbackTel = document.querySelector("#feedback-tel");
 var feedbackQuestion = document.querySelector("#feedback-question");
 
-var spollerButtons = document.querySelectorAll(".spoller__button");
+var spollerLabels = document.querySelectorAll(".spoller__button-label");
 var spollers = document.querySelectorAll(".spoller__item");
 
 // // Сохранение в Local Storage
@@ -35,6 +35,32 @@ var setError = function (input) {
 
 var removeError = function (input) {
   input.classList.remove("form__input-error");
+};
+
+// Замыкание фокуса внутри попапа
+var catchFocus = function () {
+  var focusableElementsString =
+    'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
+  var focusableElements = popup.querySelectorAll(focusableElementsString);
+  focusableElements = Array.prototype.slice.call(focusableElements);
+  var firstTabStop = focusableElements[0];
+  var lastTabStop = focusableElements[focusableElements.length - 1];
+  firstTabStop.focus();
+  popup.addEventListener("keydown", function (e) {
+    if (e.keyCode === 9) {
+      if (e.shiftKey) {
+        if (document.activeElement === firstTabStop) {
+          e.preventDefault();
+          lastTabStop.focus();
+        }
+      } else {
+        if (document.activeElement === lastTabStop) {
+          e.preventDefault();
+          firstTabStop.focus();
+        }
+      }
+    }
+  });
 };
 
 // Валидация формы
@@ -60,7 +86,6 @@ var showModal = function () {
   popup.classList.remove("popup--closed");
   popupOverlay.classList.remove("popup-overlay--closed");
   page.classList.add("blocked");
-  popupName.focus();
 };
 
 var hideModal = function () {
@@ -82,6 +107,7 @@ var validatePopupTel = function () {
 var openModal = function () {
   removeError(popupTel);
   showModal();
+  catchFocus();
   popupCloseButton.addEventListener("click", hideModal);
   page.addEventListener("keydown", onPopupFormEscKeydown);
   popupOverlay.addEventListener("click", hideModal);
@@ -134,7 +160,7 @@ spollers.forEach(function (spoller) {
   spoller.classList.remove("spoller__item--nojs");
 });
 
-spollerButtons.forEach(function (button) {
+spollerLabels.forEach(function (button) {
   button.addEventListener("click", function () {
     var spoller = button.closest(".spoller__item");
 
